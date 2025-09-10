@@ -13,10 +13,19 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
+const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 scene.add(cube);
+
+const sphereGeometry = new THREE.SphereGeometry(2, 25, 25);
+const sphereMaterial = new THREE.MeshBasicMaterial({
+  color: 0x0077ff,
+  wireframe: true,
+});
+const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+scene.add(sphere);
 
 camera.position.z = 5;
 
@@ -30,7 +39,8 @@ window.addEventListener("resize", onResize);
 function animate(time) {
   cube.rotation.x = time * 0.001;
   cube.rotation.y = time * 0.001;
+  sphere.rotation.y = time * 0.0001;
   renderer.render(scene, camera);
 }
 
-renderer.setAnimationLoop( animate );
+renderer.setAnimationLoop(animate);
